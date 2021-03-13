@@ -1,0 +1,28 @@
+.banner{
+    background: url("https://wallpapercave.com/wp/wp2349395.jpg");
+    height: 50vh;
+    position: relative;
+    width:145vh;
+}
+.banner>h1{
+    color: white;
+}
+.banner__info {
+    background-color: rgb(207, 156, 16);
+    color: rgb(255, 255, 255);
+    padding-top: 20vh;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 40px;
+    width: 300px;
+}
+.banner__info>button{
+    background-color: chocolate;
+    color: white;
+    text-transform: inherit;
+    margin-top: 20px;
+    font-weight: 600;
+}
+.banner__info > h5{
+    margin-top: 40;
+}

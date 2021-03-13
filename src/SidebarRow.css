@@ -1,0 +1,21 @@
+.sldebarRow {
+display: flex;
+align-items: center;
+padding-top: 20px;
+padding-bottom: 30px;
+padding-right: 50px;
+padding-left: 30px;
+cursor: pointer;
+}
+.sldebarRow:hover{
+    background-color: lightgrey;
+    border-radius: 20;
+}
+.sldebarRow > h4 {
+    margin-left: 30px;
+    font-weight: 700;
+}
+.sldebarRow > .MuiSvgIcon-root{
+    font-size: xx-large;
+    color: #2e81f4;
+}
