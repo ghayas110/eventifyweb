@@ -5,7 +5,7 @@ import Feed from './Feed';
 import './Header'
 import Header from './Header';
 import Sidebar from './Sidebar';
-
+import EventAdd from './EventAdd';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom"; 
 import Event from './Event';
 function App() {
@@ -18,6 +18,9 @@ function App() {
 
       <Sidebar/>
       <Switch>
+      <Route path="/addevent">
+      <EventAdd/>
+      </Route>
       {/*Feed */}
       <Route path="/event">
       <Event/>
