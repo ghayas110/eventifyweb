@@ -1,6 +1,6 @@
 import React from 'react'
-import './Header.css'
-import logo from './logo.png'
+import './cssfiles/Header.css'
+import logo from './images/logo.png'
 import SearchIcon from '@material-ui/icons/Search';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import HomeIcon from '@material-ui/icons/Home';

@@ -1,6 +1,6 @@
 import { Button } from '@material-ui/core'
 import React from 'react'
-import "./banner.css"
+import "./cssfiles/banner.css"
 function Banner() {
     return (
         <div className="banner">

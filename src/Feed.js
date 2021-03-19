@@ -1,11 +1,11 @@
 import React from 'react'
 import Banner from './Banner'
-import "./Feed.css"
+import "./cssfiles/Feed.css"
 import Card from './Card'
-import ana from "./ana.jpg"
-import event from "./event.jpg"
-import profile from "./profile.jpg"
-import chat from "./chat.jpg"
+import ana from "./images/ana.jpg"
+import event from "./images/event.jpg"
+import profile from "./images/profile.jpg"
+import chat from "./images/chat.jpg"
 
 function Feed() {
     return (

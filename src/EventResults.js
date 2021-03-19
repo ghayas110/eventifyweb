@@ -1,5 +1,5 @@
 import React from 'react'
-import "./EventResults.css"
+import "./cssfiles/EventResults.css"
 import StarIcon from '@material-ui/icons/Star';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 function EventResults({
