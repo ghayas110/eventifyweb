@@ -14,7 +14,7 @@ function Feed() {
             <Banner/>
             <div class="home__section">
                 <Card src={ana} title ="Analytics" description="Analyzation event planner " />
-                <Card src={event} title ="Events" description="Events to create event planner " />
+                <Card src={event} title ="Events" description="Create event planner " />
                 <Card src={profile} title ="Profile" description="Profile of event planner " />
                 <Card src={chat} title ="Chat" description="Chat of event planner " />
             </div>

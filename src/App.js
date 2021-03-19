@@ -5,7 +5,8 @@ import Feed from './Feed';
 import './Header'
 import Header from './Header';
 import Sidebar from './Sidebar';
-
+import SignupForm from './SignupForm'
+import SigninForm from './SigninForm'
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom"; 
 import Event from './Event';
 function App() {
@@ -18,8 +19,11 @@ function App() {
 
       <Sidebar/>
       <Switch>
-      <Route path="/addevent">
-      
+      <Route path="/signin">
+      <SigninForm/>
+      </Route>
+      <Route path="/signup">
+      <SignupForm/>
       </Route>
       {/*Feed */}
       <Route path="/event">
