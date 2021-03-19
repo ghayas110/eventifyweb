@@ -9,6 +9,7 @@ import SignupForm from './SignupForm'
 import SigninForm from './SigninForm'
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom"; 
 import Event from './Event';
+import EventAddForm from './EventAddForm';
 function App() {
   return (
     <div className="App">
@@ -19,6 +20,9 @@ function App() {
 
       <Sidebar/>
       <Switch>
+      <Route path="/eventadd">
+      <EventAddForm/>
+      </Route>
       <Route path="/signin">
       <SigninForm/>
       </Route>
