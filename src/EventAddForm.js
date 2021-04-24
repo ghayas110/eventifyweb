@@ -1,6 +1,6 @@
 import  React,{useState} from "react";
 import database from "./firebase";
-import rocketImg from './images/rocket.png';
+
 import { EventAdd } from './component/EventAdd';
 
  
@@ -36,9 +36,7 @@ import { EventAdd } from './component/EventAdd';
         <div className="col-md-5">
           <EventAdd addOrEdit={addOrEdit}/>
         </div>
-        <div className="col-md-7 my-auto">
-          <img className="img-fluid w-100" src={rocketImg} alt=""/>
-        </div>
+       
       </div>
     </div>
    );

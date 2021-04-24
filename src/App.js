@@ -10,6 +10,7 @@ import SigninForm from './SigninForm'
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom"; 
 import Event from './Event';
 import EventAddForm from './EventAddForm';
+import Profile from './Profile';
 function App() {
   return (
     <div className="App">
@@ -32,6 +33,9 @@ function App() {
       {/*Feed */}
       <Route path="/event">
       <Event/>
+      </Route>
+      <Route path="/profile">
+      <Profile/>
       </Route>
       <Route path="/">
       <Feed/>

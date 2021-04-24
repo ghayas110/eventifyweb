@@ -1,7 +1,7 @@
 import React from "react";
-import { Formik, Form } from "formik";
-import { TextField } from "./Textfield";
+import { Formik } from "formik";
 
+import { CustomInput, Form, FormGroup, Label, Input } from 'reactstrap';
 // --- Material Ui Picker Imports --- //
 
 
@@ -51,46 +51,50 @@ export const EventAdd = (props) => {
         <div>
           <h1 className="my-4 font-weight-bold .display-4">Event</h1>
           <Form onSubmit={handleSubmit}>
-            <TextField
-              label="Title"
-              name="title"
-              type="text"
-              onChange={handleChange}
-            />
-            <TextField
-              label="Location"
-              name="location"
-              type="text"
-              onChange={handleChange}
-            />
-            <label >Event upload</label>
-            <input id="file" name="eventupload" type="file" accept='image/*' className="form-control" onChange={handleChange} />
-            <br />
-        
-              <br/>
-            <label for="select">Event Categories</label>
-            <br />
-            <select
-              className="form-select form-select-lg mb-3"
-              aria-label=".form-select-lg example"
-              label="Categories"
-              name="eventcategories"
-              onChange={handleChange}
-              onSelect={handleChange}
-            >
-              <option value='0'>Categories</option>
-              <option value="Birthday Event">Birthday Event</option>
-              <option value="Weding Event">Wedding Event</option>
-              <option value="Celebration Event">Celebration Event</option>
-            </select>
-            <br />
-            <TextField
-              label="Total Price"
-              name="price"
-              type="number"
-              onChange={handleChange}
-            />
-            <br />
+          <FormGroup>
+                <Label htmlFor="title" className='col-12' >Title</Label>
+                <Input
+                  type="text"
+                  name="title"
+                  placeholder="Title"
+                  onChange={handleChange}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="location" className='col-12' >Location</Label>
+                <Input
+                  type="text"
+                  name="location"
+                  placeholder="Location"
+                  onChange={handleChange}
+                />
+              </FormGroup>
+            
+              <FormGroup>
+                <Label for="file">Event upload</Label>
+                <CustomInput type="file" id="file" name="eventupload" accept='image/*' label="Event upload" onChange={(e) => { values.eventupload = e.target.files[0] }} />
+              </FormGroup>
+            
+              <FormGroup>
+                <Label htmlFor="paymentMethod">Event Categories</Label>
+                <CustomInput type="select" id="eventcategories" name="eventcategories" onChange={handleChange} onSelect={handleChange} >
+                  <option value="" label="Select Event Categories" />
+                  <option value="Birthday Event" label="Birthday Event" />
+                  <option value="Wedding Event" label="Wedding Event" />
+                  <option value="Celebration Event" label="Celebration Event" />
+                </CustomInput>
+              </FormGroup>
+          
+              <FormGroup>
+                <Label htmlFor="Price" className='col-12' >Price</Label>
+                <Input
+                  type="text"
+                  name="price"
+                  placeholder="Price"
+                  onChange={handleChange}
+                />
+              </FormGroup>
+           
             <label for="floatingTextarea">Description</label>
             <br />
           

@@ -14,7 +14,15 @@
     text-transform: inherit;
     margin: 5px;
 }
-.header{
+.headers{
     display: flex;
-    flex-direction: row;
+    padding: 15px 20px;
+    justify-content: space-between;
+    position: sticky;
+    background-color: white;
+    
+    top: 0;
+    box-shadow: 0px 5px 8px -9px rgba(0, 0, 0, 0.75 );
+  
+    
 }
