@@ -62,7 +62,7 @@ const Profile = (props) => {
             <div >
               <h2>Ghayas110</h2>
               <div className={classes.con}>
-                <p>Name:Ghayas Ali</p>
+                
                 <p >Email:ghayas110@gmail.com</p>
                 <p>Phone No:03002661456</p>
                 

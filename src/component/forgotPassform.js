@@ -1,9 +1,10 @@
 import React from 'react';
-import rocketImg from './images/rocket.png';
-import { Signup } from './component/Signup';
+import rocketImg from '../images/rocket.png';
+import ForgotPassword from './ForgetPassword';
+import Signin  from './Signin';
 
  
- function SignupForm(){
+ function ForgotPassForm(){
    // Pass the useFormik() hook initial form values and a submit function that will
    // be called when the form is submitted
    
@@ -11,7 +12,7 @@ import { Signup } from './component/Signup';
         <div className="container mt-3">
       <div className="row">
         <div className="col-md-5">
-          <Signup />
+          <ForgotPassword/>
         </div>
         <div className="col-md-7 my-auto">
           <img className="img-fluid w-100" src={rocketImg} alt=""/>
@@ -20,4 +21,4 @@ import { Signup } from './component/Signup';
     </div>
    );
  };
- export default SignupForm;
+ export default ForgotPassForm;

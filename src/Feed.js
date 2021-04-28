@@ -1,5 +1,5 @@
 import React from 'react'
-import Banner from './Banner'
+import Banner from './component/Banner'
 import "./cssfiles/Feed.css"
 
 import ana from "./images/ana.jpg"

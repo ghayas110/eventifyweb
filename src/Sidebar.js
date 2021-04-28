@@ -40,7 +40,7 @@ import ghayas from'./images/ghayas.jpg'
 import ChatIcon from '@material-ui/icons/Chat';
 import Feed from './Feed';
 import Event from './Event';
-import Profile from './Profile';
+import Profile from './component/Profile';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({

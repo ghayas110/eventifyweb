@@ -1,54 +1,64 @@
-import React from 'react';
-import { Formik, Form } from 'formik';
-import { TextField } from './Textfield'
-import * as Yup from 'yup';
-
+import React, { useRef, useState } from "react"
+import { useAuth } from "../contexts/AuthContext"
+import { Link, useHistory } from "react-router-dom"
+import { Form, Button, Card, Alert } from "react-bootstrap";
 export const Signup = () => {
-  const validate = Yup.object({
-    firstName: Yup.string()
-      .max(15, 'Must be 15 characters or less')
-      .required('Required'),
-    lastName: Yup.string()
-      .max(20, 'Must be 20 characters or less')
-      .required('Required'),
-    email: Yup.string()
-      .email('Email is invalid')
-      .required('Email is required'),
-    password: Yup.string()
-      .min(6, 'Password must be at least 6 charaters')
-      .required('Password is required'),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Password must match')
-      .required('Confirm password is required'),
-  })
+  const emailRef = useRef()
+  const passwordRef = useRef()
+  const passwordConfirmRef = useRef()
+  const { signup } = useAuth()
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  const history = useHistory()
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+
+    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+      return setError("Passwords do not match")
+    }
+
+    try {
+      setError("")
+      setLoading(true)
+      await signup(emailRef.current.value, passwordRef.current.value)
+      history.push("/")
+    } catch {
+      setError("Failed to create an account")
+    }
+
+    setLoading(false)
+  }
   return (
-    <Formik
-      initialValues={{
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-      }}
-      validationSchema={validate}
-      onSubmit={values => {
-        console.log(values)
-      }}
-    >
-      {formik => (
-        <div>
-          <h1 className="my-4 font-weight-bold .display-4">Sign Up</h1>
-          <Form>
-            <TextField label="First Name" name="firstName" type="text" />
-            <TextField label="last Name" name="lastName" type="text" />
-            <TextField label="Email" name="email" type="email" />
-            <TextField label="Password" name="password" type="password" />
-            <TextField label="Confirm Password" name="confirmPassword" type="password" />
-            <button className="btn btn-dark mt-3" type="submit">Register</button>
-            <button className="btn btn-danger mt-3 ml-3" type="reset">Reset</button>
-          </Form>
-        </div>
+    
+           <>
+           <Card>
+             <Card.Body>
+               <h2 className="text-center mb-4">Sign Up</h2>
+               {error && <Alert variant="danger">{error}</Alert>}
+               <Form onSubmit={handleSubmit}>
+                 <Form.Group id="email">
+                   <Form.Label>Email</Form.Label>
+                   <Form.Control type="email" ref={emailRef} required />
+                 </Form.Group>
+                 <Form.Group id="password">
+                   <Form.Label>Password</Form.Label>
+                   <Form.Control type="password" ref={passwordRef} required />
+                 </Form.Group>
+                 <Form.Group id="password-confirm">
+                   <Form.Label>Password Confirmation</Form.Label>
+                   <Form.Control type="password" ref={passwordConfirmRef} required />
+                 </Form.Group>
+                 <Button disabled={loading} className="w-100" type="submit">
+                   Sign Up
+                 </Button>
+               </Form>
+             </Card.Body>
+           </Card>
+           <div className="w-100 text-center mt-2">
+             Already have an account? <Link to="/signin">Log In</Link>
+           </div>
+         </>
       )}
-    </Formik>
-  )
-}
+    
+ 

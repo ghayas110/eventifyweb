@@ -20,6 +20,7 @@ function Event() {
   }, []);
   const renderEvents = () => {
     if (events.length > 0) {
+      
       console.log("events", events[0]);
       return events.map((item, index) => {
         for (const i in item) {

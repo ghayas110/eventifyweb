@@ -1,6 +1,6 @@
 import React from 'react';
-import rocketImg from './images/rocket.png';
-import { Signin } from './component/Signin';
+import rocketImg from '../images/rocket.png';
+import { Signup } from './Signup';
 
  
  function SignupForm(){
@@ -11,7 +11,7 @@ import { Signin } from './component/Signin';
         <div className="container mt-3">
       <div className="row">
         <div className="col-md-5">
-          <Signin />
+          <Signup />
         </div>
         <div className="col-md-7 my-auto">
           <img className="img-fluid w-100" src={rocketImg} alt=""/>
