@@ -23,26 +23,23 @@ function Event() {
       
       console.log("events", events[0]);
       return events.map((item, index) => {
+        var detail = []
         for (const i in item) {
-          // return console.log("ítems", item[i]);
-            return (
-              <EventResults
-                img={profile}
-                location={item[i].location}
-                title={item[i].title}
-                description={item[i].description}
-                star="4.75"
-                price={"Rs" + item[i].price}
-              />
-            );
+          detail.push(item[i])
         }
-      });
-      // for (const i in events) {
-      //    return(
-
-      //    )
-      //     // console.log("loop",events[i])
-      // }
+        return detail.map((item, index) => {
+          return (
+            <EventResults
+              img={profile}
+              location={item.location}
+              title={item.title}
+            description={item.description}
+            star="4.75"
+            price={"Rs" + item.price}
+            />
+          );
+        })
+      })
     }
   };
   return (
