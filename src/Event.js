@@ -4,6 +4,7 @@ import "./cssfiles/Event.css";
 import EventResults from "./EventResults";
 import profile from "./images/profile.jpg";
 import database from "./firebase";
+import { Link, useHistory } from "react-router-dom"
 // import EventAddForm  from "./EventAddForm";
 function Event() {
   const [events, setEvents] = useState({});
@@ -43,8 +44,20 @@ function Event() {
     }
   };
   return (
-    <div className="Event">
-      <div class="event__info">
+    
+      <div className="container mt-3">
+      <div className="row">
+        <div className="col-md-5">
+        <p>Event Page</p>
+            <h1>Active Events</h1>
+            <Button variant="outlined" onClick={'/eventadd'}>
+              Add Event
+            </Button>
+        </div>
+        
+      </div>
+    
+      {/* <div class="event__info">
         <div class="headers">
           <div class="head1">
             <p>Event Page</p>
@@ -58,9 +71,7 @@ function Event() {
           </div>
         </div>
 
-        <Button variant="outlined">Birthday Event</Button>
-        <Button variant="outlined">Wedding Event</Button>
-        <Button variant="outlined">Celebration Event</Button>
+  
       </div>
       {/* <EventResults
         img={hotel}
@@ -77,10 +88,11 @@ function Event() {
         description="Cake writen 23rd Birthday and no music involved"
         star="4.75"
         price="5000 PKR/6Hrs"
-      /> */}
+      /> */} 
 
       {renderEvents()}
-    </div>
+      </div>
+    
   );
 }
 
