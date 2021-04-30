@@ -43,6 +43,7 @@
 .event__infoBottom{
     display: flex;
     justify-content: space-between;
+    
 }
 .event__star{
     color: gold;
@@ -51,9 +52,11 @@
 .event__stars{
 display: flex;
 align-items: center;
+margin-top: 0px;
 }
 .event__price>p{
 text-align: right;
+
 }
 .event__price{
     position: absolute;

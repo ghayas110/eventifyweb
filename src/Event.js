@@ -4,7 +4,7 @@ import "./cssfiles/Event.css";
 import EventResults from "./EventResults";
 import profile from "./images/profile.jpg";
 import database from "./firebase";
-import { Link, useHistory } from "react-router-dom"
+
 // import EventAddForm  from "./EventAddForm";
 function Event() {
   const [events, setEvents] = useState({});

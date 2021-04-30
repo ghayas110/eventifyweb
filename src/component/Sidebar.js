@@ -1,46 +1,39 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { Link, withRouter, useRouteMatch } from 'react-router-dom'
+import { Link, useRouteMatch } from 'react-router-dom'
 import clsx from 'clsx'
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import Header from "./Header";
+import Header from "../Header";
 
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import AddToQueueIcon from '@material-ui/icons/AddToQueue';
 
-import { NavbarBrand, Card, CardBody } from 'reactstrap'
-import { NavLink, Redirect, Route, Switch } from 'react-router-dom'
+import { Card } from 'reactstrap'
+import {  Route, Switch } from 'react-router-dom'
 
 
 
-import SidebarRow from './/SidebarRow'
-import EventIcon from '@material-ui/icons/Event';
+
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import AssessmentIcon from '@material-ui/icons/Assessment';
-import ghayas from'./images/ghayas.jpg'
-import ChatIcon from '@material-ui/icons/Chat';
-import Feed from './Feed';
-import Event from './Event';
-import Profile from './component/Profile';
+
+
+import Feed from '../Feed';
+import Event from '../Event';
+import Profile from './Profile';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -106,10 +99,10 @@ const useStyles = makeStyles((theme) => ({
   }));
   
   const sideBarItems = [
-    { name: 'Home', links: '/', icon: <DashboardIcon /> },
+    { name: 'Home', links: '/dashboard', icon: <DashboardIcon /> },
     { name: 'Events', links: '/event', icon: <MailIcon /> },
     { name: 'Profile', links: '/profile', icon: <AccountCircleIcon />  },
-    { name: 'Chat', links: '/dashboard/chat', icon: <AddToQueueIcon /> },
+    { name: 'Chat', links: '/chat', icon: <AddToQueueIcon /> },
     { name: 'Projects', links: '/dashboard/Projects', icon: <AccountTreeIcon /> },
   ]
   
@@ -117,8 +110,8 @@ function Sidebar(props) {
     const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [screenSize, setScreenSize] = useState(1000)
-  let { path, url } = useRouteMatch();
-  const theme = useTheme();
+  let {path} = useRouteMatch();
+
 
   const handleDrawerToggle = () => {
     setOpen(!open);
