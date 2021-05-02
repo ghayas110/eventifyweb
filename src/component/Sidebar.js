@@ -23,7 +23,7 @@ import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import AddToQueueIcon from '@material-ui/icons/AddToQueue';
 
 import { Card } from 'reactstrap'
-import {  Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 
 
@@ -34,83 +34,85 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Feed from '../Feed';
 import Event from '../Event';
 import Profile from './Profile';
+import { Chat } from '@material-ui/icons';
+import ChatScreen from './ChatScreen';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
+  root: {
+    display: 'flex',
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginRight: 25,
+  },
+  hide: {
+    display: 'none',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+  },
+  drawerOpen: {
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerClose: {
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: 'hidden',
+    width: theme.spacing(7) + 1,
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing(9) + 1,
     },
-    appBar: {
-      zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-    },
-    appBarShift: {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
-    menuButton: {
-      marginRight: 25,
-    },
-    hide: {
-      display: 'none',
-    },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-      whiteSpace: 'nowrap',
-    },
-    drawerOpen: {
-      width: drawerWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
-    drawerClose: {
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      overflowX: 'hidden',
-      width: theme.spacing(7) + 1,
-      [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(9) + 1,
-      },
-    },
-    toolbar: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
-    },
-    content: {
-      flexGrow: 1,
-      padding: theme.spacing(0),
-    },
-  }));
-  
-  const sideBarItems = [
-    { name: 'Home', links: '/dashboard', icon: <DashboardIcon /> },
-    { name: 'Events', links: '/event', icon: <MailIcon /> },
-    { name: 'Profile', links: '/profile', icon: <AccountCircleIcon />  },
-    { name: 'Chat', links: '/chat', icon: <AddToQueueIcon /> },
-    { name: 'Projects', links: '/dashboard/Projects', icon: <AccountTreeIcon /> },
-  ]
-  
-function Sidebar(props) {
-    const classes = useStyles();
+  },
+  toolbar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(0),
+  },
+}));
+
+const sideBarItems = [
+  { name: 'Home', links: '/dashboard', icon: <DashboardIcon /> },
+  { name: 'Events', links: '/dashboard/event', icon: <MailIcon /> },
+  { name: 'Profile', links: '/dashboard/profile', icon: <AccountCircleIcon /> },
+  { name: 'Chat', links: '/dashboard/chat', icon: <AddToQueueIcon /> },
+  { name: 'Projects', links: '/dashboard/Projects', icon: <AccountTreeIcon /> },
+]
+
+function Sidebar() {
+  const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [screenSize, setScreenSize] = useState(1000)
-  let {path} = useRouteMatch();
+  let { path } = useRouteMatch();
 
 
   const handleDrawerToggle = () => {
@@ -133,98 +135,101 @@ function Sidebar(props) {
   const Component = ({ match }) => {
     // console.log(match.params.loc)
     var comp = match.params.loc
-    if (comp === 'Feed')
+    // if (comp === 'Feed')
+    //   return (
+    //     // <MyReferals />
+    //     <Feed />
+    //   )
+    if (comp === 'event')
       return (
-        // <MyReferals />
-        <Feed/>
+        <Event />
       )
-    else if (comp === 'Event')
+    else if (comp === 'profile')
       return (
-        
-        <Event/>
+        <Profile />
       )
-    else if (comp === 'Profile')
+      else if (comp === 'chat')
       return (
-      <Profile/>
+        <ChatScreen/>
       )
-    else if (comp === 'MyPlans')
-      return (
-        // <MyPlans />
-        ''
-      )
-    else if (comp === 'Profile')
-      return (
-        // <Profile />
-        ''
-      )
-    else if (comp === 'ProfileEdit')
-      return (
-        // <ProfileEdit />
-        ''
-      )
-    else if (comp === 'Checkout')
-      return (
-        // <Checkout />
-        ''
-      )
+    // else if (comp === 'MyPlans')
+    //   return (
+    //     // <MyPlans />
+
+    //   )
+    // else if (comp === 'Profile')
+    //   return (
+    //     // <Profile />
+    //     ''
+    //   )
+    // else if (comp === 'ProfileEdit')
+    //   return (
+    //     // <ProfileEdit />
+    //     ''
+    //   )
+    // else if (comp === 'Checkout')
+    //   return (
+    //     // <Checkout />
+    //     ''
+    //   )
   }
 
-    return (
-        <>
-        <div className={classes.root}>
-          <CssBaseline />
-          <div>
-            <AppBar position="fixed" className={classes.appBar}>
-              <Toolbar style={{ backgroundColor: 'white' }} >
-                <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  onClick={() => screenSize <= 768 ? '' : handleDrawerToggle()}
-                  edge="start"
-                  className={clsx(classes.menuButton)}
-                >
-                  <MenuIcon style={{ color: screenSize <= 768 ? '#ccc' : '#cc6c2c' }} />
-                </IconButton >
-                <Header />
-              </Toolbar>
-            </AppBar>
-            <Drawer
-              variant="permanent"
-              className={clsx(classes.drawer, {
+  return (
+    <>
+      <div className="col-11 pt-5 pl-5 ml-5">
+        <CssBaseline />
+        <div>
+          <AppBar position="fixed" className={classes.appBar}>
+            <Toolbar style={{ backgroundColor: 'white' }} >
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={() => screenSize <= 768 ? '' : handleDrawerToggle()}
+                edge="start"
+                className={clsx(classes.menuButton)}
+              >
+                <MenuIcon style={{ color: screenSize <= 768 ? '#ccc' : '#cc6c2c' }} />
+              </IconButton >
+              <Header />
+            </Toolbar>
+          </AppBar>
+          <Drawer
+            variant="permanent"
+            className={clsx(classes.drawer, {
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open,
+            })}
+            classes={{
+              paper: clsx({
                 [classes.drawerOpen]: open,
                 [classes.drawerClose]: !open,
-              })}
-              classes={{
-                paper: clsx({
-                  [classes.drawerOpen]: open,
-                  [classes.drawerClose]: !open,
-                }),
-              }}
-            >
-              {/* <Toolbar />
+              }),
+            }}
+          >
+            {/* <Toolbar />
               <Toolbar /> */}
-              <div className={classes.drawerContainer} style={{ marginTop: screenSize <= 430 ? 142 : 88 }} >
-                <Divider />
-                {sideBarItems.map((item, index) => {
-                  var active = window.location.pathname
-                  // console.log(active === item.links, active, item.links)
-                  return (
-                    <List style={{ color: "#cc6c2c", backgroundColor: active === item.links ? '#cc6c2c' : '#fff' }}>
-                      <Link to={item.links} style={{ textDecoration: 'none' }}  >
-                        <ListItem
-                          button
-                        >
-                          <ListItemIcon>
-                            {item.icon}
-                          </ListItemIcon>
-                          <ListItemText primary={item.name} style={{ color: active === item.links ? '#fff' : "#cc6c2c", textDecorationStyle: 'none' }} />
-                        </ListItem>
-                      </Link>
-                    </List>
-                  )
-                })}
-  
-                {/* <List>
+            <div className={classes.drawerContainer} style={{ marginTop: screenSize <= 430 ? 142 : 88 }} >
+              <Divider />
+              {sideBarItems.map((item, index) => {
+                var active = window.location.pathname
+                // console.log(active === item.links, active, item.links)
+                return (
+                  <List style={{ color: "#cc6c2c", backgroundColor: active === item.links ? '#cc6c2c' : '#fff' }}>
+                    <Link to={item.links} style={{ textDecoration: 'none' }}  >
+                      <ListItem
+                        button
+                      >
+                        <ListItemIcon>
+                          {item.icon}
+                        </ListItemIcon>
+                        <ListItemText primary={item.name} style={{ color: active === item.links ? '#fff' : "#cc6c2c", textDecorationStyle: 'none' }} />
+                      </ListItem>
+                    </Link>
+                  </List>
+                )
+              })}
+
+              {/* <List>
                 <ListItem button>
                   <ListItemIcon>
                     <InboxIcon />
@@ -232,28 +237,28 @@ function Sidebar(props) {
                   <ListItemText primary={"Widthdrawls"} />
                 </ListItem>
               </List> */}
-  
-              </div>
-            </Drawer>
-          </div>
-          <main className={classes.content}>
-            <Card style={{ background: 'transparent' }} >
-            </Card>
-            <Switch>
-              {/* <Route exact path={''} component={UserPanel} /> */}
-              <Route exact path={`${path}/:loc`} component={Component} />
-              {/* <Route path={`${path}/UserPanel`} component={UserPanel} />
+
+            </div>
+          </Drawer>
+        </div>
+        <main className={classes.content}>
+          <Card style={{ background: 'transparent' }} >
+          </Card>
+          <Switch>
+            <Route exact path={'/dashboard'} component={Feed} />
+            <Route exact path={`${path}/:loc`} component={Component} />
+            {/* <Route path={`${path}/UserPanel`} component={UserPanel} />
               <Route path={`${path}/ReferedBy`} component={ReferedBy} />
               <Route path={`${path}/MyReferals`} component={MyReferals} />
               <Route path={`${path}/ByPlans`} component={ByPlans} />
               <Route path={`${path}/MyPlans`} component={MyPlans} />
               <Route path={`${path}/Profile`} component={Profile} />
               <Route path={`${path}/ProfileEdit`} component={ProfileEdit} /> */}
-            </Switch>
-          </main>
-        </div >
-      </>
-    )
+          </Switch>
+        </main>
+      </div >
+    </>
+  )
 }
 
 export default Sidebar

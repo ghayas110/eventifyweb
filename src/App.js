@@ -1,7 +1,7 @@
 import "./cssfiles/App.css";
-import Feed from "./Feed";
+
 import "./Header";
-import Header from "./Header";
+
 import Sidebar from "./component/Sidebar";
 import SignupForm from "./component/SignupForm";
 import SigninForm from "./component/SigninForm";
@@ -10,28 +10,31 @@ import Event from "./Event";
 import EventAddForm from "./EventAddForm";
 import Profile from "./component/Profile";
 import { AuthProvider } from "./contexts/AuthContext";
-
+import EventEditForm from "./component/EventEditForm"
 import ForgetFormPass from "./component/forgotPassform";
 
-import EventEditForm from "./component/EventEditForm";
-import ChatScreen from "./component/ChatScreen";
+import './cssfiles/App.css';
+
+import './Header'
+
 
 function App() {
   return (
     <div className="App">
-      <Header />
+      {/* <Header /> */}
       <Router>
         {/* Header */}
 
+
         <div class="app__body">
           <AuthProvider>
-            <Sidebar />
+            {/* <Sidebar /> */}
 
             <Switch>
-              {/* <Route path="/eventadd">
-      <EventAddForm/>
-      </Route>
-   */}
+              <Route path="/eventadd">
+                <EventAddForm />
+              </Route>
+
               <Route path="/signup">
                 <SignupForm />
               </Route>
@@ -39,10 +42,7 @@ function App() {
                 <ForgetFormPass />
               </Route>
               <Route path="/epedit">
-                <EventEditForm />
-              </Route>
-              <Route path="/eventadd">
-                <EventAddForm/>
+                <EventEditForm/>
               </Route>
               {/*Feed */}
               <Route path="/event">
@@ -52,18 +52,20 @@ function App() {
                 <Profile />
               </Route>
               <Route path="/dashboard">
-                <Feed />
+                <Sidebar />
               </Route>
-              <Route path="/chat">
+              {/* <Route path="/chat">
                 <ChatScreen />
-              </Route>
+              </Route> */}
               {/*Event */}
               <Route path="/">
                 <SigninForm />
               </Route>
             </Switch>
           </AuthProvider>
+
         </div>
+
       </Router>
     </div>
   );

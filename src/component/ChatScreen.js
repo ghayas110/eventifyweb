@@ -6,7 +6,7 @@ function ChatScreen() {
    
   
     return (
-        <div className="ChatScreen w-100 " >
+        <div className="ChatScreen  " >
         
             <div class="chat__body">
 <ChatSideBar/>
