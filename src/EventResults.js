@@ -27,10 +27,10 @@ function EventResults({
                     </p>
                     </div>
                     <div class="event__price">
-                        <h2>
+                        <h4>
                             {price}
-                        </h2>
-                        <p>{total}</p>
+                        </h4>
+                     
                     </div>
 
 

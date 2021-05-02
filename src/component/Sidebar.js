@@ -34,8 +34,9 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Feed from '../Feed';
 import Event from '../Event';
 import Profile from './Profile';
-import { Chat } from '@material-ui/icons';
+
 import ChatScreen from './ChatScreen';
+import { EventAdd } from './EventAdd';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -105,7 +106,7 @@ const sideBarItems = [
   { name: 'Events', links: '/dashboard/event', icon: <MailIcon /> },
   { name: 'Profile', links: '/dashboard/profile', icon: <AccountCircleIcon /> },
   { name: 'Chat', links: '/dashboard/chat', icon: <AddToQueueIcon /> },
-  { name: 'Projects', links: '/dashboard/Projects', icon: <AccountTreeIcon /> },
+  { name: 'EventAdd', links: '/dashboard/eventadd' ,icon: <AccountTreeIcon />},
 ]
 
 function Sidebar() {
@@ -151,6 +152,10 @@ function Sidebar() {
       else if (comp === 'chat')
       return (
         <ChatScreen/>
+      )
+      else if (comp === 'eventadd')
+      return (
+        <EventAdd/>
       )
     // else if (comp === 'MyPlans')
     //   return (

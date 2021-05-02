@@ -16,13 +16,14 @@ import ForgetFormPass from "./component/forgotPassform";
 import './cssfiles/App.css';
 
 import './Header'
+import Header from "./Header";
 
 
 function App() {
   return (
     <div className="App">
-      {/* <Header /> */}
-      <Router>
+      <Header/>
+       <Router>
         {/* Header */}
 
 
@@ -66,7 +67,7 @@ function App() {
 
         </div>
 
-      </Router>
+      </Router> 
     </div>
   );
 }
