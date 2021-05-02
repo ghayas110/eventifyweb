@@ -21,7 +21,7 @@ function Event() {
   }, []);
   const renderEvents = () => {
     if (events.length > 0) {
-      
+
       console.log("events", events[0]);
       return events.map((item, index) => {
         var detail = []
@@ -34,9 +34,9 @@ function Event() {
               img={profile}
               location={item.location}
               title={item.title}
-            description={item.description}
-            star="4.75"
-            price={"Rs" + item.price}
+              description={item.description}
+              star="4.75"
+              price={"Rs" + item.price}
             />
           );
         })
@@ -44,19 +44,19 @@ function Event() {
     }
   };
   return (
-    
-      <div className="container mt-3">
+
+    <div className="container mt-3">
       <div className="row">
         <div className="col-md-5">
-        <p>Event Page</p>
-            <h1>Active Events</h1>
-            <Button variant="outlined" onClick={'/eventadd'}>
-              Add Event
+          <p>Event Page</p>
+          <h1>Active Events</h1>
+          <Button variant="outlined" onClick={'/eventadd'}>
+            Add Event
             </Button>
         </div>
-        
+
       </div>
-    
+
       {/* <div class="event__info">
         <div class="headers">
           <div class="head1">
@@ -88,11 +88,11 @@ function Event() {
         description="Cake writen 23rd Birthday and no music involved"
         star="4.75"
         price="5000 PKR/6Hrs"
-      /> */} 
+      /> */}
 
       {renderEvents()}
-      </div>
-    
+    </div>
+
   );
 }
 
