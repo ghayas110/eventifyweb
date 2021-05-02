@@ -4,8 +4,8 @@ import Feed from './Feed';
 import './Header'
 import Header from './Header';
 import Sidebar from './component/Sidebar';
-import SignupForm from './SignupForm'
-import SigninForm from './SigninForm'
+
+
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom"; 
 import Event from './Event';
 import EventAddForm from './EventAddForm';
@@ -23,7 +23,7 @@ function Dashboard() {
        <AuthProvider>
          <Sidebar/>
          <Switch>
-         <Route path="dashboard/eventadd">
+         <Route path="/eventadd">
          <EventAddForm/>
          </Route>
          
@@ -34,6 +34,9 @@ function Dashboard() {
          <Route path="/profile">
          <Profile/>
          </Route>
+         <Route path="/epedit">
+      <EventEditForm/>
+      </Route>
          <Route path="/">
          <Feed/>
          </Route>
