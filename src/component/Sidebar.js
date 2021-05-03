@@ -106,7 +106,7 @@ const sideBarItems = [
   { name: 'Events', links: '/dashboard/event', icon: <MailIcon /> },
   { name: 'Profile', links: '/dashboard/profile', icon: <AccountCircleIcon /> },
   { name: 'Chat', links: '/dashboard/chat', icon: <AddToQueueIcon /> },
-  { name: 'EventAdd', links: '/dashboard/eventadd' ,icon: <AccountTreeIcon />},
+  { name: 'EventAdd', links: '/dashboard/eventadd', icon: <AccountTreeIcon /> },
 ]
 
 function Sidebar() {
@@ -149,13 +149,13 @@ function Sidebar() {
       return (
         <Profile />
       )
-      else if (comp === 'chat')
+    else if (comp === 'chat')
       return (
-        <ChatScreen/>
+        <ChatScreen />
       )
-      else if (comp === 'eventadd')
+    else if (comp === 'eventadd')
       return (
-        <EventAdd/>
+        <EventAdd />
       )
     // else if (comp === 'MyPlans')
     //   return (
@@ -181,7 +181,7 @@ function Sidebar() {
 
   return (
     <>
-      <div className="col-11 pt-5 pl-5 ml-5">
+      <div className="col-11 pt-5 pl-5 ml-5 mt-5">
         <CssBaseline />
         <div>
           <AppBar position="fixed" className={classes.appBar}>
@@ -251,7 +251,7 @@ function Sidebar() {
           </Card>
           <Switch>
             <Route exact path={'/dashboard'} component={Feed} />
-            <Route  path={`${path}/:loc`} component={Component} />
+            <Route path={`${path}/:loc`} component={Component} />
             {/* <Route path={`${path}/UserPanel`} component={UserPanel} />
               <Route path={`${path}/ReferedBy`} component={ReferedBy} />
               <Route path={`${path}/MyReferals`} component={MyReferals} />
