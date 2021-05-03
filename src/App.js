@@ -1,29 +1,26 @@
-import "./cssfiles/App.css";
-
-import "./Header";
-
-import Sidebar from "./component/Sidebar";
-import SignupForm from "./component/SignupForm";
-import SigninForm from "./component/SigninForm";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Event from "./Event";
-import EventAddForm from "./EventAddForm";
-import Profile from "./component/Profile";
-import { AuthProvider } from "./contexts/AuthContext";
-import EventEditForm from "./component/EventEditForm"
-import ForgetFormPass from "./component/forgotPassform";
 
 import './cssfiles/App.css';
 
 import './Header'
-import Header from "./Header";
 
+import Sidebar from './component/Sidebar';
+import SignupForm from './component/SignupForm'
+import SigninForm from './component/SigninForm'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Event from './Event';
+import EventAddForm from './EventAddForm';
+import Profile from './component/Profile';
+import { AuthProvider } from "./contexts/AuthContext"
+
+import ForgetFormPass from './component/forgotPassform';
+
+import EventEditForm from './component/EventEditForm';
 
 function App() {
   return (
     <div className="App">
-      <Header/>
-       <Router>
+      {/* <Header /> */}
+      <Router>
         {/* Header */}
 
 
@@ -43,8 +40,9 @@ function App() {
                 <ForgetFormPass />
               </Route>
               <Route path="/epedit">
-                <EventEditForm/>
+                <EventEditForm />
               </Route>
+
               {/*Feed */}
               <Route path="/event">
                 <Event />
@@ -67,7 +65,7 @@ function App() {
 
         </div>
 
-      </Router> 
+      </Router>
     </div>
   );
 }

@@ -1,12 +1,37 @@
-import React from "react";
+import React,{useState} from "react";
 import { Formik } from "formik";
-
+import {db} from "../firebase";
 import { CustomInput, Form, FormGroup, Label, Input } from 'reactstrap';
 // --- Material Ui Picker Imports --- //
 
 
 export const EPEdit = (props) => {
+  const[epname,setEpname]=useState("");
+  const[epcat,setEpcat]=useState("");
+  // const[eventupload,setEventupload]=useState("");
+  const[address,setAddress]=useState("");
+  // const[ eventlogoupload,setEventlogoupload]=useState("");
+  const[description,setDescription]=useState("");
 
+  
+
+const handleSubmit=(e)=>{
+  e.preventDefault();
+  db.collection("eplanner").add(
+    {
+      epname:epname,
+      epcat: epcat,
+        //  eventupload: eventupload,
+     
+         address:address,
+         description:description ,
+    }
+  ).then(()=>
+alert("Form has been Uploaded")
+  ).catch((error)=>{
+    console.log(error.message)
+  })
+}
   // const handleInputChange = (e) => {
   //   var { name, value } = e.target;
   //   setValues({
@@ -22,28 +47,21 @@ export const EPEdit = (props) => {
 
   return (
     <Formik
-      initialValues={{
-        epname: "",
-        epcat: "",
-        address: "",
-        eventlogoupload: "",
-
-        description: "",
-      }}
+   
       // validationSchema={validate}
-      onSubmit={(values) => {
-        props.addOrEdit(values)
-        console.log(values);
-        if (values.eventcategories === "0") console.log('0 value!')
-        else
-         alert("Your Profile is being Saved Successfully");
-      }}
+      // onSubmit={(values) => {
+      //   props.addOrEdit(values)
+      //   console.log(values);
+      //   if (values.eventcategories === "0") console.log('0 value!')
+      //   else
+      //    alert("Your Profile is being Saved Successfully");
+      // }}
     >
       {({
-        handleSubmit,
+     
         handleReset,
         isSubmitting,
-        handleChange,
+      
         values,
         errors,
         touched,
@@ -57,12 +75,12 @@ export const EPEdit = (props) => {
                   type="text"
                   name="epname"
                   placeholder="Event Planner Name"
-                  onChange={handleChange}
+                  onChange={(e)=>setEpname(e.target.value)}
                 />
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="epcat">Event Categories</Label>
-                <CustomInput type="select" id="epcat" name="epcat" onChange={handleChange} onSelect={handleChange} >
+                <CustomInput type="select" id="epcat" name="epcat"   onChange={(e)=>setEpcat(e.target.value)}  >
                   <option value="" label="Select Event Categories" />
                   <option value="Birthday Event" label="Birthday Event" />
                   <option value="Wedding Event" label="Wedding Event" />
@@ -75,14 +93,14 @@ export const EPEdit = (props) => {
                   type="text"
                   name="address"
                   placeholder="Address"
-                  onChange={handleChange}
+                  onChange={(e)=>setAddress(e.target.value)}
                 />
               </FormGroup>
-            
+{/*             
               <FormGroup>
                 <Label for="file">Event Planner Logo upload</Label>
                 <CustomInput type="file" id="file" name="eventlogoupload" accept='image/*' label="Event upload" onChange={(e) => { values.eventupload = e.target.files[0] }} />
-              </FormGroup>
+              </FormGroup> */}
             
         
            
@@ -94,7 +112,7 @@ export const EPEdit = (props) => {
               placeholder="Write Description about Event Planner"
               
               name="description"
-              onChange={handleChange}
+              onChange={(e)=>setDescription(e.target.value)}
             />
         
             <br />

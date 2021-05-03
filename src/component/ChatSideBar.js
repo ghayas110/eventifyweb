@@ -1,65 +1,62 @@
-import { Avatar, IconButton } from "@material-ui/core";
-import React, { useState } from "react";
-import "../cssfiles/ChatSideBar.css";
+import { Avatar,IconButton } from '@material-ui/core'
+import React ,{useState,useEffect} from 'react'
+import '../cssfiles/ChatSideBar.css'
 
-import database from "../firebase";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import ChatIcon from "@material-ui/icons/Chat";
-import DonutLargeIcon from "@material-ui/icons/DonutLarge";
-import { SearchOutlined } from "@material-ui/icons";
-import SideBarChat from "./SideBarChat";
+
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import ChatIcon from '@material-ui/icons/Chat';
+import DonutLargeIcon from '@material-ui/icons/DonutLarge';
+import { SearchOutlined } from '@material-ui/icons';
+import SideBarChat from './SideBarChat';
+import { db } from '../firebase';
 function ChatSideBar() {
-  var [currentId, setCurrentId] = useState("");
+const [rooms, setRooms] = useState([])
+useEffect(() => {
+const unsubscribe=db.collection('rooms').onSnapshot(
+     snapshot=>(
+         setRooms(snapshot.docs.map(doc=>({
+             id:doc.id,
+             data:doc.data()
+         })) )
+     )
+ );
+ return()=>{
+     unsubscribe();
+ }
+}, []);
+    return (
+        <div className="ChatSideBar">
+         <div class="sidebar__header">
+             <IconButton>
+ 
+          <Avatar/>
+          </IconButton>
+<div class="sidebar__headerRight">
+<IconButton>
+<DonutLargeIcon/>
+</IconButton>
+<IconButton>
+<ChatIcon/>
+</IconButton>
+<IconButton>
+<MoreVertIcon/>
+</IconButton>
+</div>
 
-  const addOrEdit = (obj) => {
-    if (currentId === "")
-      database
-        .ref()
-        .child("rooms")
-        .push(obj, (err) => {
-          if (err) console.log(err);
-          else setCurrentId("");
-        });
-    else
-      database
-        .ref()
-        .child(`rooms/${currentId}`)
-        .set(obj, (err) => {
-          if (err) console.log(err);
-          else setCurrentId("");
-        });
-  };
-  return (
-    <div className="ChatSideBar">
-      <div class="sidebar__header">
-        <IconButton>
-          <Avatar />
-        </IconButton>
-        <div class="sidebar__headerRight">
-          <IconButton>
-            <DonutLargeIcon />
-          </IconButton>
-          <IconButton>
-            <ChatIcon />
-          </IconButton>
-          <IconButton>
-            <MoreVertIcon />
-          </IconButton>
+         </div>
+         <div class="sidebar__search">
+             <div class="searchContainer">
+<SearchOutlined/>
+<input placeholder="Search or Start New Chat" type="text" />
+</div>
+         </div>
+         <div class="sidebar__chats">
+<SideBarChat addNewChat />
+{rooms.map( room=>(<SideBarChat key={room.id} id={room.id} name={room.data.name}/>))}
+         </div>
+        
         </div>
-      </div>
-      <div class="sidebar__search">
-        <div class="searchContainer">
-          <SearchOutlined />
-          <input placeholder="Search or Start New Chat" type="text" />
-        </div>
-      </div>
-      <div class="sidebar__chats">
-        <SideBarChat addNewChat addOrEdit={addOrEdit} />
-        <SideBarChat />
-        <SideBarChat />
-      </div>
-    </div>
-  );
+    )
 }
 
-export default ChatSideBar;
+export default ChatSideBar
