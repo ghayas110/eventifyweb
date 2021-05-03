@@ -35,6 +35,9 @@ import Feed from '../Feed';
 import Event from '../Event';
 import Profile from './Profile';
 
+import ChatScreen from './ChatScreen';
+import { EventAdd } from './EventAdd';
+
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -103,7 +106,7 @@ const sideBarItems = [
   { name: 'Events', links: '/dashboard/event', icon: <MailIcon /> },
   { name: 'Profile', links: '/dashboard/profile', icon: <AccountCircleIcon /> },
   { name: 'Chat', links: '/dashboard/chat', icon: <AddToQueueIcon /> },
-  { name: 'Projects', links: '/dashboard/Projects', icon: <AccountTreeIcon /> },
+  { name: 'EventAdd', links: '/dashboard/eventadd' ,icon: <AccountTreeIcon />},
 ]
 
 function Sidebar() {
@@ -145,6 +148,14 @@ function Sidebar() {
     else if (comp === 'profile')
       return (
         <Profile />
+      )
+      else if (comp === 'chat')
+      return (
+        <ChatScreen/>
+      )
+      else if (comp === 'eventadd')
+      return (
+        <EventAdd/>
       )
     // else if (comp === 'MyPlans')
     //   return (
@@ -240,7 +251,7 @@ function Sidebar() {
           </Card>
           <Switch>
             <Route exact path={'/dashboard'} component={Feed} />
-            <Route exact path={`${path}/:loc`} component={Component} />
+            <Route  path={`${path}/:loc`} component={Component} />
             {/* <Route path={`${path}/UserPanel`} component={UserPanel} />
               <Route path={`${path}/ReferedBy`} component={ReferedBy} />
               <Route path={`${path}/MyReferals`} component={MyReferals} />

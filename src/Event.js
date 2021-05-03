@@ -3,18 +3,21 @@ import React, { useEffect, useState } from "react";
 import "./cssfiles/Event.css";
 import EventResults from "./EventResults";
 import profile from "./images/profile.jpg";
-import database from "./firebase";
 
+import {db} from "./firebase";
 // import EventAddForm  from "./EventAddForm";
 function Event() {
-  const [events, setEvents] = useState({});
+  const [events, setEvent] = useState({});
   const getEvents = () => {
-    var rootRef = database.ref();
-    rootRef.once("value").then(function (snapshot) {
-      //   var key = snapshot.key; // null
-      var eventdata = snapshot.child("eventify").val(); // "ada"
-      setEvents([eventdata]);
-    });
+  db.collection("event").onSnapshot(snapshot=>(
+      setEvent(snapshot.docs.map(doc=>(
+          {
+            //   id:doc.id,
+              data: doc.data()
+          }
+      )))
+  ))
+ 
   };
   useEffect(() => {
     getEvents();
@@ -35,7 +38,7 @@ function Event() {
               location={item.location}
               title={item.title}
               description={item.description}
-              star="4.75"
+              
               price={"Rs" + item.price}
             />
           );

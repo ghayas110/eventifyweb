@@ -1,9 +1,8 @@
 
-
 import './cssfiles/App.css';
-import Feed from './Feed';
+
 import './Header'
-import Header from './Header';
+
 import Sidebar from './component/Sidebar';
 import SignupForm from './component/SignupForm'
 import SigninForm from './component/SigninForm'
@@ -16,7 +15,7 @@ import { AuthProvider } from "./contexts/AuthContext"
 import ForgetFormPass from './component/forgotPassform';
 
 import EventEditForm from './component/EventEditForm';
-import ChatScreen from './component/ChatScreen';
+
 function App() {
   return (
     <div className="App">

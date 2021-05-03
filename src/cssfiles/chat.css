@@ -29,7 +29,7 @@
 .chat_bodys{
     flex: 1;
     background-image: url("https://res.cloudinary.com/practicaldev/image/fetch/s--WAKqnINn--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/tw0nawnvo0zpgm5nx4fp.png");
-padding: 20px;
+padding: 10px;
 }
 .chat__message{
     position: relative;
@@ -58,7 +58,7 @@ padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 62px;
+    height: 50px;
     border-top: 1px solid lightgrey;
 }
 .chat_footer>form{
@@ -68,8 +68,9 @@ padding: 20px;
 .chat_footer>form>input{
     flex: 1;
     border-radius: 30px;
-    padding: 10px;
+    padding: 8px;
     border: none;
+    
 
 }
 .chat_footer>form>button{
