@@ -4,16 +4,24 @@ import { db } from "../firebase";
 import { CustomInput, Form, FormGroup, Label, Input } from 'reactstrap';
 // --- Material Ui Picker Imports --- //
 
-
 export const EventAdd = (props) => {
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
-  // const[eventupload,setEventupload]=useState("");
+  const [eventupload, setEventupload] = useState("");
   const [eventcategories, setEventCategories] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-
-
+  const [error, seterror] = useState(null);
+  const types = ['image/png', 'image/jpg', 'image/jpeg']
+  const changeHandler = (e) => {
+    let selected = e.target.files[0];
+    if (selected && types.includes(selected.type)) {
+      setEventupload(selected);
+    } else {
+      setEventupload(null);
+      seterror("Wrong File Input")
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,7 +29,7 @@ export const EventAdd = (props) => {
       {
         title: title,
         location: location,
-        //  eventupload: eventupload,
+        // eventupload: eventupload,
         eventcategories: eventcategories,
         price: price,
         description: description,
@@ -97,11 +105,12 @@ export const EventAdd = (props) => {
               />
             </FormGroup>
 
-            {/* <FormGroup>
-                <Label for="file">Event upload</Label>
-                <CustomInput type="file" id="file" name="eventupload" accept='image/*' label="Event upload" onChange={(e) => { values.eventupload = e.target.files[0] }} />
-              </FormGroup> */}
-
+            <FormGroup>
+              <Label for="file">Event upload</Label>
+              <CustomInput type="file" id="file" name="eventupload" accept='image/*' label="Event upload" onChange={changeHandler} />
+            </FormGroup>
+            {error && <div>{error}</div>}
+            {/* {eventupload && <div>{eventupload.name}</div>} */}
             <FormGroup>
               <Label >Event Categories</Label>
               <CustomInput value={eventcategories} type="select" id="eventcategories" name="eventcategories" onChange={(e) => setEventCategories(e.target.value)}  >
