@@ -1,5 +1,6 @@
 import firebase from "firebase";
 import 'firebase/auth'
+import 'firebase/storage'
 var firebaseConfig = {
   apiKey: "AIzaSyDrk9gnvo7th54NLtCfyLsn99EAgGkmYmU",
   authDomain: "eventify-5ea05.firebaseapp.com",
@@ -11,7 +12,9 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 const firebaseApp=firebase.initializeApp(firebaseConfig);
-export const auth = firebase.auth()
+export const auth = firebase.auth();
+export const projstorage=firebase.storage();
 // export default firebase.database();
 export var db = firebaseApp.firestore();
 // export {db}
+
