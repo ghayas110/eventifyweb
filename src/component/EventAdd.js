@@ -1,44 +1,86 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik } from "formik";
-import { db } from "../firebase";
+import { db, projectStorage, timestamp } from "../firebase";
 import { CustomInput, Form, FormGroup, Label, Input } from 'reactstrap';
+import ProgressBar from "./ProgressBar";
+// import useStorage from "../hooks/useStorage";
 // --- Material Ui Picker Imports --- //
 
 export const EventAdd = (props) => {
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
-  const [eventupload, setEventupload] = useState("");
+  const [file, setFile] = useState("");
   const [eventcategories, setEventCategories] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [error, seterror] = useState(null);
   const types = ['image/png', 'image/jpg', 'image/jpeg']
+
+  const usStorage = (eventId) => {
+    // const [progress, setProgress] = useState(0);
+    // const [error, setError] = useState(null);
+    // const [url, setUrl] = useState(null);
+
+    // useEffect(() => {
+    // references
+    const storageRef = projectStorage.ref(`images/${eventId}/`);
+    const collectionRef = db.collection(`images/`);
+    if (file !== "") {
+      storageRef.put(file).on('state_changed', (snap) => {
+        console.log(snap)
+        // let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+        // setProgress(percentage);
+      }, (err) => {
+        console.log("Err: ", err)
+      }, async () => {
+        const url = await storageRef.getDownloadURL();
+        const createdAt = timestamp();
+        // await collectionRef.add({ eventId: eventId, file: file });
+      });
+    }
+    // return {  error };
+  }
+
   const changeHandler = (e) => {
     let selected = e.target.files[0];
     if (selected && types.includes(selected.type)) {
-      setEventupload(selected);
+      setFile(selected);
     } else {
-      setEventupload(null);
+      setFile(null);
       seterror("Wrong File Input")
     }
   }
 
   const handleSubmit = (e) => {
+
     e.preventDefault();
+
     db.collection("event").add(
       {
         title: title,
         location: location,
-        // eventupload: eventupload,
+        //  file: file,
         eventcategories: eventcategories,
         price: price,
         description: description,
       }
-    ).then(() =>
+    ).then((data) => {
       alert("Form has been Uploaded")
+      console.log("form:", data.id)
+      usStorage(data.id)
+      // { file && <ProgressBar file={file} setFile={setFile} /> }
+    }
     ).catch((error) => {
       console.log(error.message)
     })
+    setTitle("");
+    setLocation("");
+    setEventCategories("");
+    setPrice("");
+    setFile("");
+    setDescription("");
+
+
   }
   // const handleInputChange = (e) => {
   //   var { name, value } = e.target;
@@ -76,7 +118,7 @@ export const EventAdd = (props) => {
 
         handleReset,
         isSubmitting,
-        // handleChange,
+        //  handleChange,
         values,
         errors,
         touched,
@@ -107,10 +149,12 @@ export const EventAdd = (props) => {
 
             <FormGroup>
               <Label for="file">Event upload</Label>
-              <CustomInput type="file" id="file" name="eventupload" accept='image/*' label="Event upload" onChange={changeHandler} />
+              <CustomInput type="file" id="file" name="file" accept='image/*' label="Event upload" multiple={false}
+                onChange={(e) => { changeHandler(e) }} />
             </FormGroup>
             {error && <div>{error}</div>}
-            {/* {eventupload && <div>{eventupload.name}</div>} */}
+            {file && <div>{file.name}</div>}
+            {/* { file && <ProgressBar file={file} setFile={setFile} /> } */}
             <FormGroup>
               <Label >Event Categories</Label>
               <CustomInput value={eventcategories} type="select" id="eventcategories" name="eventcategories" onChange={(e) => setEventCategories(e.target.value)}  >
@@ -140,6 +184,7 @@ export const EventAdd = (props) => {
               className="form-control"
               placeholder="Write Description about Event"
               value={description}
+              required
               name="description"
               onChange={(e) => setDescription(e.target.value)}
             />

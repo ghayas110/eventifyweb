@@ -29,9 +29,7 @@ function App() {
             {/* <Sidebar /> */}
 
             <Switch>
-              <Route path="/eventadd">
-                <EventAddForm />
-              </Route>
+             
 
               <Route path="/signup">
                 <SignupForm />
@@ -39,24 +37,12 @@ function App() {
               <Route path="/forgot">
                 <ForgetFormPass />
               </Route>
-              <Route path="/epedit">
-                <EventEditForm />
-              </Route>
-
-              {/*Feed */}
-              <Route path="/event">
-                <Event />
-              </Route>
-              <Route path="/profile">
-                <Profile />
-              </Route>
+      
+            
               <Route path="/dashboard">
                 <Sidebar />
               </Route>
-              {/* <Route path="/chat">
-                <ChatScreen />
-              </Route> */}
-              {/*Event */}
+            
               <Route path="/">
                 <SigninForm />
               </Route>
