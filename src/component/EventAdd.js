@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 import { Formik } from "formik";
-import { db ,projectStorage, timestamp } from "../firebase";
+import { db } from "../firebase";
 import { CustomInput, Form, FormGroup, Label, Input } from 'reactstrap';
 import ProgressBar from "./ProgressBar";
 // --- Material Ui Picker Imports --- //
@@ -50,7 +50,7 @@ alert("Form has been Uploaded")
   setLocation("");
   setEventCategories("");
   setPrice("");
-  setFile("");
+  
   setDescription("");
 
   
@@ -126,8 +126,8 @@ alert("Form has been Uploaded")
               </FormGroup>
             {error && <div>{error}</div>}
              {file && <div>{file.name}</div>}
-             {/* { file && <ProgressBar file={file} setFile={setFile} /> } */}
-              <FormGroup>
+             {/* {file && <ProgressBar/>} */}
+                      <FormGroup>
                 <Label >Event Categories</Label>
                 <CustomInput value={eventcategories} type="select" id="eventcategories" name="eventcategories"  onChange={(e)=>setEventCategories(e.target.value) }  >
                   <option value="" label="Select Event Categories" />
