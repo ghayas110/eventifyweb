@@ -7,13 +7,15 @@ import React,{useState,useEffect} from 'react';
 import '../cssfiles/chat.css';
 import { useParams } from "react-router-dom";
 import { db } from '../firebase';
-import firebase from "firebase";
+import { useAuth } from "../contexts/AuthContext";
+import  firebase  from "firebase";
 function Chat() {
     const [input,setInput]= useState('');
     const [seed,setSeed]= useState('');
     const {roomId} =useParams();
     const [roomName,setRoomName]=useState("");
     const [messages, setMessages] = useState([]);
+    const {currentUser} = useAuth()
 
     useEffect(() => {
        if(roomId){
@@ -33,7 +35,7 @@ e.preventDefault();
 console.log("You Typed",input);
 db.collection("rooms").doc(roomId).collection('messages').add({
     message:input,
-    name:"Ghayas",
+    name:currentUser.email,
     timestamp:firebase.firestore.FieldValue.serverTimestamp(),
 })
 setInput("");
@@ -44,7 +46,10 @@ setInput("");
                  <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`}/>
                  <div className="chat__info">
                      <h4>{roomName}</h4>
-                     <p>Last Seen...</p>
+                     <p>
+                         Lastseen{" "}
+                         {new Date(messages[messages.length-1]?.timestamp?.toDate()).toUTCString()}
+                     </p>
                      </div>
                      <div class="chat_headerRight">
                          <IconButton>
@@ -62,7 +67,7 @@ setInput("");
                      </div>
                      <div className="chat_bodys">
                          {messages.map((message)=>(
-                                 <p className={`chat__message ${true && "chat__reciever"}`} ><span className="chat__name" > {message.name}</span>{message.message}<span className="timestamp" > {new Date(message.timestamp?.toDate()).toUTCString()}</span>  </p>
+                                 <p className={`chat__message ${message.name===currentUser.email && "chat__reciever"}`} ><span className="chat__name" > {message.name}</span>{message.message}<span className="timestamp" > {new Date(message.timestamp?.toDate()).toUTCString()}</span>  </p>
                          
                          ))}
                      

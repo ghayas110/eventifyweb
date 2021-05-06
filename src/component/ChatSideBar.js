@@ -9,8 +9,11 @@ import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import { SearchOutlined } from '@material-ui/icons';
 import SideBarChat from './SideBarChat';
 import { db } from '../firebase';
+import { useAuth } from "../contexts/AuthContext";
 function ChatSideBar() {
     const [rooms, setRooms] = useState([])
+    const {currentUser} = useAuth()
+
     useEffect(() => {
         const unsubscribe = db.collection('rooms').onSnapshot(
             snapshot => (
@@ -31,16 +34,10 @@ function ChatSideBar() {
 
                     <Avatar />
                 </IconButton>
+                  
+
                 <div class="sidebar__headerRight">
-                    <IconButton>
-                        <DonutLargeIcon />
-                    </IconButton>
-                    <IconButton>
-                        <ChatIcon />
-                    </IconButton>
-                    <IconButton>
-                        <MoreVertIcon />
-                    </IconButton>
+               <h5>{currentUser.email} </h5>
                 </div>
 
             </div>

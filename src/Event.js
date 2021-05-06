@@ -3,15 +3,18 @@ import React, { useEffect, useState } from "react";
 import "./cssfiles/Event.css";
 import EventResults from "./EventResults";
 import profile from "./images/profile.jpg";
+import { db, projectStorage,  } from "./firebase";
 
-import {db} from "./firebase";
+// import {db} from "./firebase";
 // import EventAddForm  from "./EventAddForm";
-function Event() {
+function Event(eventId) {
   const [events, setEvent] = useState({});
   const getEvents = () => {
+
   db.collection("event").onSnapshot(snapshot=>(
       setEvent(snapshot.docs.map(doc=>(
           {
+            
             //   id:doc.id,
               data: doc.data()
           }
@@ -23,6 +26,8 @@ function Event() {
     getEvents();
   }, []);
   const renderEvents = () => {
+    const storageRef = projectStorage.ref(`images/${eventId}/`).getDownloadURL();
+
     if (events.length > 0) {
 
       console.log("events", events[0]);
@@ -34,7 +39,7 @@ function Event() {
         return detail.map((item, index) => {
           return (
             <EventResults
-              img={profile}
+              img="Ghayas"
               location={item.location}
               title={item.title}
               description={item.description}
