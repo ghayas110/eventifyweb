@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 // import { useSelector } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import { makeStyles } from "@material-ui/core/styles";
@@ -43,44 +43,42 @@ const useStyles = makeStyles((theme) => ({
 
 const Profile = (props) => {
   const classes = useStyles()
-  const {currentUser} = useAuth();
-const [eventP, setEventP] = useState([]);
-//   const { loggedInUser, userPlans } = useSelector((state) => state);
-const getEventP = () => {
-  console.log(currentUser);
-  
-    db.collection("eplanner").where('currentUser',"==", currentUser.email).onSnapshot(snapshot=>(
-        setEventP(snapshot.docs.map(doc=>(
-            {
-              
-              //   id:doc.id,
-                data: doc.data()
-            }
-        )))
+  const { currentUser } = useAuth();
+  const [eventP, setEventP] = useState([]);
+  //   const { loggedInUser, userPlans } = useSelector((state) => state);
+  const getEventP = () => {
+    console.log(currentUser);
+
+    db.collection("eplanner").where('currentUser', "==", currentUser.email).onSnapshot(snapshot => (
+      setEventP(snapshot.docs.map(doc => (
+        {
+
+          //   id:doc.id,
+          data: doc.data()
+        }
+      )))
     ))
-   
-    };
-    useEffect(() => {
-      getEventP();
-    }, []);
+
+  };
+  useEffect(() => {
+    getEventP();
+  }, []);
 
 
   return (
     <div className={classes.root}>
-      <main className={classes.content} style={{  }}>
+      <main className={classes.content} style={{}}>
         <Grid item >
           <div className={classes.iconsize} >
-            
             <AccountCircleIcon style={{ fontSize: 60 }} color="primary" />
-            
-        
             <div >
-              <h2>epname</h2>
+              <h2>{eventP.map((item,index) => item.data.epname)}</h2>
               <div className={classes.con}>
-                
+                <p></p>
+
                 <p >Email:{currentUser.email}</p>
                 <p>Phone No:03002661456</p>
-                
+
                 {/* <p>Invite Link: <a style={{ fontStyle: 'italic', fontSize: 14 }} href={`http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}`}>http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}</a></p> */}
               </div>
               <div>
@@ -92,7 +90,7 @@ const getEventP = () => {
         </Grid>
       </main>
       {/* whatsapp icon */}
-    
+
     </div>
 
   );
