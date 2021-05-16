@@ -4,14 +4,17 @@ import "./cssfiles/Event.css";
 import EventResults from "./EventResults";
 import profile from "./images/profile.jpg";
 import { db, projectStorage,  } from "./firebase";
-
+import { useAuth } from "./contexts/AuthContext";
 // import {db} from "./firebase";
 // import EventAddForm  from "./EventAddForm";
-function Event(eventId) {
+function Event(item) {
   const [events, setEvent] = useState({});
+  const {currentUser} = useAuth()
   const getEvents = () => {
+console.log(currentUser);
+debugger
 
-  db.collection("event").onSnapshot(snapshot=>(
+  db.collection("event").where('currentUser',"==", currentUser.email).onSnapshot(snapshot=>(
       setEvent(snapshot.docs.map(doc=>(
           {
             
@@ -26,20 +29,23 @@ function Event(eventId) {
     getEvents();
   }, []);
   const renderEvents = () => {
-    const storageRef = projectStorage.ref(`images/${eventId}/`).getDownloadURL();
 
     if (events.length > 0) {
 
       console.log("events", events[0]);
       return events.map((item, index) => {
         var detail = []
+        console.log("ï", item)
         for (const i in item) {
           detail.push(item[i])
         }
         return detail.map((item, index) => {
+          // const storageRef = projectStorage.ref(`images/${item.id}/`).getDownloadURL();
           return (
+          
             <EventResults
-              img="Ghayas"
+            
+              img={item.postImage}
               location={item.location}
               title={item.title}
               description={item.description}
@@ -97,8 +103,10 @@ function Event(eventId) {
         star="4.75"
         price="5000 PKR/6Hrs"
       /> */}
-
-      {renderEvents()}
+   
+  
+      { 
+      renderEvents()}
     </div>
 
   );

@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import {db} from "../firebase";
 import { CustomInput, Form, FormGroup, Label, Input } from 'reactstrap';
 // --- Material Ui Picker Imports --- //
-
+import { useAuth } from "../contexts/AuthContext";
 
 export const EPEdit = (props) => {
   const[epname,setEpname]=useState("");
@@ -12,7 +12,7 @@ export const EPEdit = (props) => {
   const[address,setAddress]=useState("");
   // const[ eventlogoupload,setEventlogoupload]=useState("");
   const[description,setDescription]=useState("");
-
+  const {currentUser} = useAuth()
   
 
 const handleSubmit=(e)=>{
@@ -22,7 +22,7 @@ const handleSubmit=(e)=>{
       epname:epname,
       epcat: epcat,
         //  eventupload: eventupload,
-     
+     currentUser:currentUser.email,
          address:address,
          description:description ,
     }
