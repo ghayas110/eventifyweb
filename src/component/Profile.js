@@ -71,20 +71,24 @@ const Profile = (props) => {
         <Grid item >
           <div className={classes.iconsize} >
             <AccountCircleIcon style={{ fontSize: 60 }} color="primary" />
-            <div >
-              <h2>{eventP.map((item,index) => item.data.epname)}</h2>
-              <div className={classes.con}>
-                <p></p>
+            {eventP.map((item, index) => {
+              return (
+                <div>
+                  <h2>{item.data.epname}</h2>
+                  <div className={classes.con}>
+                    <p></p>
 
-                <p >Email:{currentUser.email}</p>
-                <p>Phone No:03002661456</p>
+                    <p >Email:{currentUser.email}</p>
+                    <p>Phone No:03002661456</p>
 
-                {/* <p>Invite Link: <a style={{ fontStyle: 'italic', fontSize: 14 }} href={`http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}`}>http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}</a></p> */}
-              </div>
-              <div>
-                <Button variant="outlined" color="primary" ><Link to={'/dashboard/epedit'}  >Edit Profile</Link></Button>
-              </div>
-            </div>
+                    {/* <p>Invite Link: <a style={{ fontStyle: 'italic', fontSize: 14 }} href={`http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}`}>http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}</a></p> */}
+                  </div>
+                  <div>
+                    <Button variant="outlined" color="primary" ><Link to={'/dashboard/epedit'}  >Edit Profile</Link></Button>
+                  </div>
+                </div>
+              )
+            })}
 
           </div>
         </Grid>
