@@ -3,51 +3,58 @@ import React, { useEffect, useState } from "react";
 import "./cssfiles/Event.css";
 import EventResults from "./EventResults";
 import profile from "./images/profile.jpg";
-import { db, projectStorage,  } from "./firebase";
+import { db, projectStorage, } from "./firebase";
 
 // import {db} from "./firebase";
 // import EventAddForm  from "./EventAddForm";
-function Event(eventId) {
+function Event(props) {
   const [events, setEvent] = useState({});
+  const [img, setimg] = useState([])
   const getEvents = () => {
 
-  db.collection("event").onSnapshot(snapshot=>(
-      setEvent(snapshot.docs.map(doc=>(
-          {
-            
-            //   id:doc.id,
-              data: doc.data()
-          }
+    db.collection("event").onSnapshot(snapshot => (
+      setEvent(snapshot.docs.map(doc => (
+        {
+          data: { data: doc.data(), url: projectStorage.ref(`images/${doc.id}`).getDownloadURL() }
+        }
       )))
-  ))
- 
+    ))
+
   };
   useEffect(() => {
     getEvents();
+    // var imageURL = []
+    // for (const i in events) {
+    //   console.log(events[i].data.id)
+    //   projectStorage.ref(`images/${events[i].data.id}`).getDownloadURL().then((url) => imageURL.push({ eventId: events[i].data.id, url: url }))
+    // }
+    // setimg(imageURL)
   }, []);
   const renderEvents = () => {
-    const storageRef = projectStorage.ref(`images/${eventId}/`).getDownloadURL();
-
     if (events.length > 0) {
-
-      console.log("events", events[0]);
+      console.log("events", events);
+      async function trying (url) {
+        let image = await url.then(async (url) => { return url })
+        console.log('image', image)
+        return image.toString()
+      }
+      // console.log('state', img)
       return events.map((item, index) => {
-        var detail = []
-        for (const i in item) {
-          detail.push(item[i])
-        }
-        return detail.map((item, index) => {
-          return (
-            <EventResults
-              img="Ghayas"
-              location={item.location}
-              title={item.title}
-              description={item.description}
-              
-              price={"Rs" + item.price}
-            />
-          );
-        })
+        // console.log(item.data.data)
+        const dtl = item.data.data
+        const url = item.data.url
+        // let l = trying(url)
+        console.log('l', l)
+        // console.log(img.filter(itm => { console.log('itm', itm.eventId === eventId); if (itm.eventId === eventId) return itm.url }))
+        return (
+          <EventResults
+            img={l}
+            location={dtl.location}
+            title={dtl.title}
+            description={dtl.description}
+            price={"Rs" + dtl.price}
+          />
+        );
       })
     }
   };
