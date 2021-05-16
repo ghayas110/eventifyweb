@@ -1,12 +1,13 @@
 import React from 'react'
-
+import { useAuth } from "./contexts/AuthContext"
 import './cssfiles/Header.css'
+import { Link, useHistory } from "react-router-dom"
 import logo from "./images/logo.png"
 
-import {  Navbar,  NavbarBrand, NavbarText, Button } from 'reactstrap';
+import { Navbar, NavbarBrand, NavbarText, Button } from 'reactstrap';
 
 function Header(props) {
-  
+    const { logout } = useAuth()
 
     return (
         <Navbar color="light" light expand="md" className='w-100 col-15' >
@@ -19,9 +20,9 @@ function Header(props) {
                         <input placeholder="Search Plan" type="text" />
                     </NavItem>
                 </Nav> */}
-            <NavbarText style={{color: 'black', fontSize: 16}} >Eventify</NavbarText>
+            <NavbarText style={{ color: 'black', fontSize: 16 }} >Eventify</NavbarText>
             <NavbarText className='ml-auto' >
-                <Button outline color="danger" >Logout</Button>
+                <Button outline color="danger" onClick={logout} ><Link to={'/'} >Logout</Link></Button>
             </NavbarText>
             {/* </Collapse> */}
         </Navbar>

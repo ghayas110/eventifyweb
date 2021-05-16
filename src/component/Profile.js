@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
 // import { useSelector } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { makeStyles } from "@material-ui/core/styles";
 import { db } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
@@ -48,7 +48,6 @@ const [eventP, setEventP] = useState([]);
 //   const { loggedInUser, userPlans } = useSelector((state) => state);
 const getEventP = () => {
   console.log(currentUser);
-  debugger
   
     db.collection("eplanner").where('currentUser',"==", currentUser.email).onSnapshot(snapshot=>(
         setEventP(snapshot.docs.map(doc=>(
@@ -85,7 +84,7 @@ const getEventP = () => {
                 {/* <p>Invite Link: <a style={{ fontStyle: 'italic', fontSize: 14 }} href={`http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}`}>http://member.mshoppingworld.com/register/${loggedInUser.user.userCode}</a></p> */}
               </div>
               <div>
-                <Button variant="outlined" color="primary" >Edit Profile</Button>
+                <Button variant="outlined" color="primary" ><Link to={'/dashboard/epedit'}  >Edit Profile</Link></Button>
               </div>
             </div>
 
