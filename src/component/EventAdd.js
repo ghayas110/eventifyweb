@@ -1,87 +1,76 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Formik } from "formik";
-import { db, projectStorage, timestamp } from "../firebase";
+import { db, projectStorage } from "../firebase";
 import { CustomInput, Form, FormGroup, Label, Input } from 'reactstrap';
+import { useAuth } from "../contexts/AuthContext";
 import ProgressBar from "./ProgressBar";
 // import useStorage from "../hooks/useStorage";
 // --- Material Ui Picker Imports --- //
-
+import firebase from "firebase";
 export const EventAdd = (props) => {
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
   const [file, setFile] = useState("");
   const [eventcategories, setEventCategories] = useState("");
   const [price, setPrice] = useState("");
+  const [url, setURL] = useState("");
   const [description, setDescription] = useState("");
-  const [error, seterror] = useState(null);
-  const types = ['image/png', 'image/jpg', 'image/jpeg']
+  // const [error, seterror] = useState(null);
+  // const types = ['image/png', 'image/jpg', 'image/jpeg']
+  const { currentUser } = useAuth()
+  const filePickerRef = useRef(null)
 
-  const usStorage = (eventId) => {
-    // const [progress, setProgress] = useState(0);
-    // const [error, setError] = useState(null);
-    // const [url, setUrl] = useState(null);
+  const addImagetoPost = function (e) {
+    setFile(e.target.files[0]);
 
-    // useEffect(() => {
-    // references
-    const storageRef = projectStorage.ref(`images/${eventId}/`);
-    const collectionRef = db.collection(`images/`);
-    if (file !== "") {
-      storageRef.put(file).on('state_changed', (snap) => {
-        console.log(snap)
-        // let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
-        // setProgress(percentage);
-      }, (err) => {
-        console.log("Err: ", err)
-      }, async () => {
-        const url = await storageRef.getDownloadURL();
-        const createdAt = timestamp();
-        // await collectionRef.add({ eventId: eventId, file: file });
-      });
-    }
-    // return {  error };
-  }
-
-  const changeHandler = (e) => {
-    let selected = e.target.files[0];
-    if (selected && types.includes(selected.type)) {
-      setFile(selected);
-    } else {
-      setFile(null);
-      seterror("Wrong File Input")
-    }
-  }
-
+  };
   const handleSubmit = (e) => {
 
     e.preventDefault();
+    console.log(file)
 
     db.collection("event").add(
       {
         title: title,
         location: location,
-        //  file: file,
         eventcategories: eventcategories,
         price: price,
         description: description,
+        currentUser: currentUser.email,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       }
-    ).then((data) => {
-      alert("Form has been Uploaded")
-      console.log("form:", data.id)
-      usStorage(data.id)
+    ).then(doc => {
+      const uploadTask = projectStorage.ref(`/image/${file.name}`).put(file)
+      uploadTask.on("state_changed", console.log, console.error, () => {
+        projectStorage
+          .ref("image")
+          .child(file.name)
+          .getDownloadURL()
+          .then((url) => {
+            setFile(null);
+            setURL(url);
+            db.collection("event").doc(doc.id).set({
+              postImage: url
+            }, { merge: true })
+          })
+
+      })
+
       // { file && <ProgressBar file={file} setFile={setFile} /> }
     }
-    ).catch((error) => {
-      console.log(error.message)
-    })
+    )
     setTitle("");
     setLocation("");
     setEventCategories("");
     setPrice("");
-    setFile("");
+
     setDescription("");
 
 
   }
+
+
+
   // const handleInputChange = (e) => {
   //   var { name, value } = e.target;
   //   setValues({
@@ -147,13 +136,12 @@ export const EventAdd = (props) => {
               />
             </FormGroup>
 
-            <FormGroup>
+            <FormGroup >
               <Label for="file">Event upload</Label>
-              <CustomInput type="file" id="file" name="file" accept='image/*' label="Event upload" multiple={false}
-                onChange={(e) => { changeHandler(e) }} />
+              <Input onChange={addImagetoPost} type="file" />
             </FormGroup>
-            {error && <div>{error}</div>}
-            {file && <div>{file.name}</div>}
+            {/* {error && <div>{error}</div>}
+            {file && <div>{file.name}</div>} */}
             {/* { file && <ProgressBar file={file} setFile={setFile} /> } */}
             <FormGroup>
               <Label >Event Categories</Label>

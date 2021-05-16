@@ -37,6 +37,8 @@ import Profile from './Profile';
 
 import ChatScreen from './ChatScreen';
 import { EventAdd } from './EventAdd';
+import EventEditForm from './EventEditForm';
+import { EPEdit } from './EPEdit';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -107,6 +109,8 @@ const sideBarItems = [
   { name: 'Profile', links: '/dashboard/profile', icon: <AccountCircleIcon /> },
   { name: 'Chat', links: '/dashboard/chat', icon: <AddToQueueIcon /> },
   { name: 'EventAdd', links: '/dashboard/eventadd', icon: <AccountTreeIcon /> },
+  { name: 'EPEdit', links: '/dashboard/epedit', icon: <AccountTreeIcon /> },
+  
 ]
 
 function Sidebar() {
@@ -156,6 +160,10 @@ function Sidebar() {
     else if (comp === 'eventadd')
       return (
         <EventAdd />
+      )
+      else if (comp === 'epedit')
+      return (
+        <EPEdit/>
       )
     // else if (comp === 'MyPlans')
     //   return (

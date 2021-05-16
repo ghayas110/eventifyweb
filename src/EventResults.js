@@ -21,7 +21,7 @@ function EventResults({
                 </div>
                 <div class="event__infoBottom">
                     <div class="event__stars">
-                        <StarIcon className="event__star"/>
+                        
                     <p>
                         <strong>{star}</strong>
                     </p>
