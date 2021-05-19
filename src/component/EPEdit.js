@@ -1,37 +1,74 @@
-import React,{useState} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Formik } from "formik";
-import {db} from "../firebase";
+import { db, projectStorage } from "../firebase";
 import { CustomInput, Form, FormGroup, Label, Input } from 'reactstrap';
-// --- Material Ui Picker Imports --- //
 import { useAuth } from "../contexts/AuthContext";
-
+import ProgressBar from "./ProgressBar";
+// import useStorage from "../hooks/useStorage";
+// --- Material Ui Picker Imports --- //
+import firebase from "firebase";
 export const EPEdit = (props) => {
   const[epname,setEpname]=useState("");
   const[epcat,setEpcat]=useState("");
   // const[eventupload,setEventupload]=useState("");
+  const [url, setURL] = useState("");
+  const [file, setFile] = useState("");
   const[address,setAddress]=useState("");
   // const[ eventlogoupload,setEventlogoupload]=useState("");
   const[description,setDescription]=useState("");
-  const {currentUser} = useAuth()
-  
+  const { currentUser } = useAuth()
+  const filePickerRef = useRef(null)
 
-const handleSubmit=(e)=>{
-  e.preventDefault();
-  db.collection("eplanner").add(
-    {
-      epname:epname,
-      epcat: epcat,
-        //  eventupload: eventupload,
-     currentUser:currentUser.email,
-         address:address,
-         description:description ,
+  const addImagetoPost = function (e) {
+    setFile(e.target.files[0]);
+
+  };
+  const handleSubmit = (e) => {
+
+    e.preventDefault();
+    console.log(file)
+
+    db.collection("eplanner").add(
+      {
+        epname: epname,
+        epcat: epcat,
+        address: address,
+        description: description,
+        currentUser: currentUser.email,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      }
+    ).then(doc => {
+      const uploadTask = projectStorage.ref(`/image/${file.name}`).put(file)
+      uploadTask.on("state_changed", console.log, console.error, () => {
+        projectStorage
+          .ref("image")
+          .child(file.name)
+          .getDownloadURL()
+          .then((url) => {
+            setFile(null);
+            setURL(url);
+            db.collection("eplanner").doc(doc.id).set({
+              postImage: url
+            }, { merge: true })
+          })
+
+      })
+
+      // { file && <ProgressBar file={file} setFile={setFile} /> }
     }
-  ).then(()=>
-alert("Form has been Uploaded")
-  ).catch((error)=>{
-    console.log(error.message)
-  })
-}
+    )
+    setEpname("");
+    setEpcat("");
+    setAddress("");
+    setDescription("");
+
+    
+
+
+  }
+
+
+
   // const handleInputChange = (e) => {
   //   var { name, value } = e.target;
   //   setValues({
@@ -87,6 +124,10 @@ alert("Form has been Uploaded")
                   <option value="Celebration Event" label="Celebration Event" />
                 </CustomInput>
               </FormGroup>
+              <FormGroup >
+              <Label for="file">Banner Logo upload</Label>
+              <Input onChange={addImagetoPost} type="file" />
+            </FormGroup>
               <FormGroup>
                 <Label htmlFor="address" className='col-12' >Address</Label>
                 <Input

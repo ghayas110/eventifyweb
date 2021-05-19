@@ -29,6 +29,7 @@ export const EventAdd = (props) => {
     e.preventDefault();
     console.log(file)
 
+
     db.collection("event").add(
       {
         title: title,
@@ -40,10 +41,10 @@ export const EventAdd = (props) => {
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       }
     ).then(doc => {
-      const uploadTask = projectStorage.ref(`/image/${file.name}`).put(file)
+      const uploadTask = projectStorage.ref(`/imaged/${file.name}`).put(file)
       uploadTask.on("state_changed", console.log, console.error, () => {
         projectStorage
-          .ref("image")
+          .ref("imaged")
           .child(file.name)
           .getDownloadURL()
           .then((url) => {
