@@ -39,6 +39,7 @@ import ChatScreen from './ChatScreen';
 import { EventAdd } from './EventAdd';
 import EventEditForm from './EventEditForm';
 import { EPEdit } from './EPEdit';
+import NotificationScreen from './NotificationScreen';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -110,7 +111,7 @@ const sideBarItems = [
   { name: 'Chat', links: '/dashboard/chat', icon: <AddToQueueIcon /> },
   { name: 'EventAdd', links: '/dashboard/eventadd', icon: <AccountTreeIcon /> },
   { name: 'EPEdit', links: '/dashboard/epedit', icon: <AccountTreeIcon /> },
-  
+  { name: 'NotificationScreen', links: '/dashboard/notification', icon: <AccountTreeIcon /> },
 ]
 
 function Sidebar() {
@@ -164,6 +165,10 @@ function Sidebar() {
       else if (comp === 'epedit')
       return (
         <EPEdit/>
+      )
+      else if (comp === 'notification')
+      return (
+        <NotificationScreen/>
       )
     // else if (comp === 'MyPlans')
     //   return (
